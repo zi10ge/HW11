@@ -1,7 +1,7 @@
 pipeline {
   agent {
     docker {
-      image 'zi10ge/jagent:3'
+      image 'zi10ge/jagent:2'
 
     }
   }
