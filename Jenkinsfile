@@ -21,7 +21,7 @@ pipeline {
           git 'https://github.com/zi10ge/HW11.git'
           }
       }
-      stage ("Copy WAR file to build dir"){
+      stage ("Copy WAR file to production dir"){
           steps {
           sh 'cp ./target/hello-1.0.war ./app/hello-1.0.war'
           }
