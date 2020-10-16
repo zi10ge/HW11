@@ -1,7 +1,7 @@
 pipeline {
   agent {
     docker {
-      image 'zi10ge/jagent:2'
+      image 'zi10ge/jagent:5'
 
     }
   }
@@ -16,19 +16,19 @@ pipeline {
           sh 'mvn package'
           }
       }
-      stage ("Pull prod souce from git"){
+      stage ("Pull production app souce from git"){
           steps {
           git 'https://github.com/zi10ge/HW11.git'
           }
       }
       stage ("Copy WAR file to build dir"){
           steps {
-          sh 'cp ./target/hello-1.0.war ./prod/hello-1.0.war'
+          sh 'cp ./target/hello-1.0.war ./app/hello-1.0.war'
           }
       }    
       stage ("Build app image"){
           steps {
-          sh 'docker build -t zi10ge/app:last ./prod'
+          sh 'docker build -t zi10ge/app:latest ./app'
           }
       }  
       stage ("Push app image to dockerhub"){
@@ -37,6 +37,14 @@ pipeline {
             sh 'docker push zi10ge/app'
             }
           }
-      }         
+      }
+      stage ("Test app get page"){
+          steps {
+          sh 'docker run --rm --name myapp -d -p 80:8080 zi10ge/app:latest'
+          sh 'sleep 10'
+          sh 'wget --quiet -O - http://84.201.161.47:80/hello-1.0'
+          sh 'docker stop myapp'
+          }
+      }        
     }
   }

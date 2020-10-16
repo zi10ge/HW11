@@ -1,4 +1,5 @@
-FROM ubuntu:18.04
-RUN apt update
-RUN apt -y install default-jdk git docker.io maven
-RUN apt clean
+FROM maven:alpine
+
+RUN apk update docker; apk add --no-cache docker;\
+    apk update git; apk add --no-cache git;\
+    apk update wget; apk add --no-cache wget

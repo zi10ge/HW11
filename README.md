@@ -6,3 +6,6 @@ chmod 777 /var/run/docker.sock
 3. Стартуем прокидывая docker.sock: 
 docker run -d -p 8080:8080 -p 50000:50000 -v /var/run/docker.sock:/var/run/docker.sock -v /home/zi10ge/jen-home:/var/jenkins_home jd
 
+4. Сборочный контейнер собираем из jagent->Dockerfile
+
+5. Продовый контейнер собираем из app->Dockerfile
